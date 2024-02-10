@@ -1,0 +1,1097 @@
+<!DOCTYPE html><html lang="es" class="no-js"><head><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let i;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",i=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")&&this._isValidScriptType(i)?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}_isValidScriptType(e){return!e||""===e||"string"==typeof e&&["text/javascript","text/x-javascript","text/ecmascript","text/jscript","application/javascript","application/x-javascript","application/ecmascript","application/jscript","module"].includes(e.toLowerCase())}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){let n=e[t];Object.defineProperty(e,t,{get:()=>n||function(){},set(i){e["rocket"+t]=n=i}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript;n||console.error("WPRocket unable to document.write this: "+t);const i=document.createRange(),r=n.parentElement;let a=e.get(n);void 0===a&&(a=n.nextSibling,e.set(n,a));const o=document.createDocumentFragment();i.setStart(o,0),o.appendChild(i.createContextualFragment(t)),r.insertBefore(o,a)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mousemove","touchmove","touchstart","touchend","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();
+</script>
+	<!-- Hotjar Tracking Code for https://ibemar.com/ -->
+<script type="rocketlazyloadscript">
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:1168580,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+	
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+		<script type="rocketlazyloadscript">(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+	<!-- This site is optimized with the Yoast SEO plugin v19.4 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>✅ Hackear Facebook Online Sin Verificación » ¡TOTALMENTE GRATIS!</title><style id="rocket-critical-css">.hvr-wobble-vertical{display:inline-block;vertical-align:middle;-webkit-transform:translateZ(0);transform:translateZ(0);box-shadow:0 0 1px rgba(0,0,0,0);-webkit-backface-visibility:hidden;backface-visibility:hidden;-moz-osx-font-smoothing:grayscale}html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}main{display:block}a{background-color:transparent;outline:0}b,strong{font-weight:700}img{border:0}hr{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}button,input,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,input,textarea{max-width:100%}button{-webkit-appearance:button}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}body,button,input,textarea{color:#1a1a1a;font-family:'Open Sans',sans-serif;font-size:14px;line-height:1.75}h1,h2,h3,h4{clear:both;font-weight:700;margin:0;text-rendering:optimizeLegibility;font-family:'Open Sans',sans-serif}p{margin:0 0 1.75em}html{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}*,*:before,*:after{-webkit-box-sizing:inherit;-moz-box-sizing:inherit;box-sizing:inherit}body{background:#fff}hr{background-color:#d1d1d1;border:0;height:1px;margin:0 0 1.75em}img{height:auto;max-width:100%;vertical-align:middle}::-webkit-input-placeholder{color:#686868;font-family:Montserrat,"Helvetica Neue",sans-serif}:-moz-placeholder{color:#686868;font-family:Montserrat,"Helvetica Neue",sans-serif}::-moz-placeholder{color:#686868;font-family:Montserrat,"Helvetica Neue",sans-serif;opacity:1}:-ms-input-placeholder{color:#686868;font-family:Montserrat,"Helvetica Neue",sans-serif}input{line-height:normal}button{background:#1a1a1a;border:0;border-radius:2px;color:#fff;font-family:Montserrat,"Helvetica Neue",sans-serif;font-weight:700;letter-spacing:0.046875em;line-height:1;padding:0.84375em 0.875em 0.78125em;text-transform:uppercase}input[type="text"],textarea{background:#f7f7f7;background-image:-webkit-linear-gradient(rgba(255,255,255,0),rgba(255,255,255,0));border:1px solid #d1d1d1;border-radius:2px;color:#686868;padding:0.625em 0.4375em;width:100%}a{text-decoration:none}.clear:before,.clear:after,.site-content:before,.site-content:after{content:"";display:table}.clear:after,.site-content:after{clear:both}.site{background-color:#fff}.site-inner{margin:0 auto;position:relative}.site-content{word-wrap:break-word;max-width:1100px;padding:20px;margin:auto}.page-template .site-content{padding-top:0px}.site-main{margin-bottom:3.5em}.site-main>:last-child{margin-bottom:0}.comment-form{padding-top:1.75em}iframe{margin-bottom:1.75em;max-width:100%;vertical-align:middle}@-ms-viewport{width:device-width}@viewport{width:device-width}.col-hack{width:30%;display:inline-block;overflow:hidden;text-align:center}.col-hack .item{font-size:30px;display:block;color:#3b5998}.title{font-size:42px;font-weight:lighter;text-align:center;display:inline-block;margin:auto}.title span{width:42px;height:42px;display:block;float:left;position:relative;margin-right:8px;margin-top:15px}.snapchat .title span{background:url(images/snap.png);background-size:contain}.form-hack{width:600px;text-align:center;margin:10px auto;margin-top:0px}.form-hack input{border:1px solid #dfe3ee;border-radius:5px;background:white;margin-bottom:10px;max-width:400px;display:block;margin:auto}.btn-fb{background:#1a1a1a;border:0;border-radius:2px;color:#fff;font-family:"Open Sans",sans-serif;font-weight:700;letter-spacing:0.046875em;line-height:1;padding:0.84375em 0.875em 0.78125em;text-transform:uppercase;display:inline-block;margin-bottom:20px;color:white;text-transform:none;font-weight:lighter;font-family:open-sans,sans-serif;margin-top:10px}.right{text-align:right;padding:10px 0px}.hacked-persons{text-align:center;margin:15px 0px;padding-left:15px}.col-person{width:18%;display:inline-block;padding:8px;border:1px solid #eee;border-radius:5px;margin-right:15px}.col-person img{display:block;margin:auto;margin-bottom:8px}.col-person .ids{border-top:1px solid #cdcece;color:#8b9dc3;margin:6px 0px;padding-top:5px;margin-bottom:0px;overflow:hidden;max-height:48px}.col-person span{font-size:12px;display:block}.stats{padding:20px 0px;padding-bottom:40px;margin-bottom:10px}.hacking-info{min-height:700px;display:none}.progress{width:90%;height:32px;background:#dfe3ee;border-radius:8px;margin:auto;overflow:hidden}.progress-fb .current-progress{background:#3b5998;width:0%;height:32px}.pasos{text-align:left;width:600px;margin:auto;padding-left:6%;font-family:'Inconsolata',monospace;background:black;padding-top:10px;padding-bottom:10px;border-radius:5px}.pasos .step{color:#4bf94b;margin-bottom:10px;display:none;padding-left:48px}.pasos .step span{background:#dfe3ee;display:inline-block;text-align:center;padding:5px 13px;border-radius:16px;margin:6px;color:#3b5998;margin-left:-45px}.hacked-info{display:none;min-height:800px}.hacked-profile{margin:auto;max-width:450px;text-align:left;line-height:20px;overflow:hidden;margin-top:10px}.hacked-profile p{margin-bottom:5px}.image-hacked{float:left;width:120px;height:120px;margin-right:15px;margin-bottom:10px;background:#dfe3ee}.img-comments{text-align:center;max-width:70%;margin:auto}.btn-ordenar{border:1px solid;border-radius:5px;box-sizing:content-box;font-size:12px;-webkit-font-smoothing:antialiased;font-weight:bold;padding:5px 12px;position:relative;text-align:center;text-shadow:none;vertical-align:middle;border-color:#ced0d4;background-color:#f6f7f9;color:#181819;position:relative;padding-right:14px;display:inline-block}.btn-ordenar::after{background:url(images/arrow-comment.png) no-repeat center;content:" ";display:inline-block;width:10px;height:6px;margin-left:5px}.img-comments h3{text-align:left;font-weight:lighter;margin-bottom:5px;font-size:25px}.comment-header{overflow:hidden}.img-comments .left{float:left;padding:10px 0px}.img-comments .right{float:right}.avatar-white,.comment-input{float:left}.comment-input{width:88%;position:relative}.comment-input textarea{height:80px;border-radius:8px;background:#fff;border:1px solid #dfe3ee}.comment-left,.comment-right{float:left}.comment-right{width:88%;text-align:justify;position:relative}.comment-right h4{color:#3b5998;font-weight:600}.comment-right p{margin-bottom:5px}.comment-likes a{font-size:12px;color:#455f96}.timeago{font-size:12px;color:#666}.load-comments{display:block;background:#4080ff;color:white;padding:12px 5%;margin:30px 0px}.comment{margin-top:10px;margin-bottom:5px;overflow:hidden}.likes{background:url(images/hand.png) no-repeat left;padding-left:20px}.img-comments img{max-width:80%}.comment-left img{margin-top:8px;max-width:70px;margin-right:8px}.details{margin:35px 0px;font-size:18px;margin-top:0px}.clear{clear:both}.snapchat .title span{background:url(images/snap.png);background-size:contain}.snapchat .title{color:#000}.snapchat .col-person .ids{color:black}.snapchat .col-hack .item{color:#9333ad}.snapchat h2{color:#000}.snapchat .btn-fb{background:black}.snapchat .progress-fb .current-progress{background:#FFFC00}.snapchat .progress{background:#f5f5f5;color:black}.snapchat .progress-status{color:black}.snapchat .load-comments{background:#FFFC00;color:black}@media only screen and (max-width:1000px){.comment-right{width:78%}}@media only screen and (max-width:720px){.form-hack{max-width:600px;width:auto}.form-hack h1{line-height:33px;font-size:22px;text-align:left}.title span{margin-top:0px;background-repeat:no-repeat}.col-person{width:40%;margin-bottom:20px}.col-hack .item{font-size:20px}.img-comments{max-width:100%}.comment-right{width:65%}.comment-input{width:65%}.img-comments img{max-width:60px}.pasos{padding-left:0px;width:auto}.img-comments h3{font-size:18px}.col-person .ids{font-size:11px}}.site{margin:21px}.site-inner{max-width:710px}.site-main{margin-bottom:5.25em}.site-inner{max-width:656px}</style><link rel="preload" href="https://fonts.googleapis.com/css?family=Inconsolata%7CMerriweather%3A400%2C400italic%2C700%2C700italic%2C900%2C900italic%7CMontserrat%3A400%2C700&amp;subset=latin%2Clatin-ext&amp;display=swap" data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="preload" href="https://ibemar.com/wp-content/cache/min/1/b0c18c0a6c83239bb32f4ee04a9fcc7a.css" data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" media="all" data-minify="1">
+	<meta name="description" content="▶▶ ¿Quieres hackear una cuenta de Facebook? Entra en nuestra herramienta y disfruta del mejor sistema para espiar Facebook 【sin encuestas ni descargas】">
+	<link rel="canonical" href="https://ibemar.com/hackear-facebook/">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+	<meta property="og:locale" content="es_ES">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="✅ Hackear Facebook Online Sin Verificación » ¡TOTALMENTE GRATIS!">
+	<meta property="og:description" content="▶▶ ¿Quieres hackear una cuenta de Facebook? Entra en nuestra herramienta y disfruta del mejor sistema para espiar Facebook 【sin encuestas ni descargas】">
+	<meta property="og:url" content="https://ibemar.com/hackear-facebook/">
+	<meta property="og:site_name" content="Ibemar - Como Hackear">
+	<meta property="article:modified_time" content="2024-01-15T11:48:02+00:00">
+	<meta property="og:image" content="images/facebookicon.png">
+	<meta property="og:image:width" content="149">
+	<meta property="og:image:height" content="149">
+	<meta property="og:image:type" content="image/png">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:label1" content="Tiempo de lectura">
+	<meta name="twitter:data1" content="11 minutos">
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://ibemar.com/#organization","name":"Ibemar - Como Hackear","url":"https://ibemar.com/","sameAs":[],"logo":{"@type":"ImageObject","inLanguage":"es","@id":"https://ibemar.com/#/schema/logo/image/","url":"https://ibemar.com/wp-content/uploads/2018/09/cropped-ibemarlogo-3.png","contentUrl":"https://ibemar.com/wp-content/uploads/2018/09/cropped-ibemarlogo-3.png","width":240,"height":38,"caption":"Ibemar - Como Hackear"},"image":{"@id":"https://ibemar.com/#/schema/logo/image/"}},{"@type":"WebSite","@id":"https://ibemar.com/#website","url":"https://ibemar.com/","name":"Ibemar - Como Hackear","description":"Los mejores hacks en Ibemar de redes sociales","publisher":{"@id":"https://ibemar.com/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://ibemar.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"es"},{"@type":"ImageObject","inLanguage":"es","@id":"https://ibemar.com/hackear-facebook/#primaryimage","url":"https://ibemar.com/wp-content/uploads/2018/09/facebookicon.png","contentUrl":"https://ibemar.com/wp-content/uploads/2018/09/facebookicon.png","width":149,"height":149,"caption":"hackear facebook"},{"@type":"WebPage","@id":"https://ibemar.com/hackear-facebook/","url":"https://ibemar.com/hackear-facebook/","name":"✅ Hackear Facebook Online Sin Verificación » ¡TOTALMENTE GRATIS!","isPartOf":{"@id":"https://ibemar.com/#website"},"primaryImageOfPage":{"@id":"https://ibemar.com/hackear-facebook/#primaryimage"},"image":{"@id":"https://ibemar.com/hackear-facebook/#primaryimage"},"thumbnailUrl":"https://ibemar.com/wp-content/uploads/2018/09/facebookicon.png","datePublished":"2018-09-06T21:15:12+00:00","dateModified":"2024-01-15T11:48:02+00:00","description":"▶▶ ¿Quieres hackear una cuenta de Facebook? Entra en nuestra herramienta y disfruta del mejor sistema para espiar Facebook 【sin encuestas ni descargas】","breadcrumb":{"@id":"https://ibemar.com/hackear-facebook/#breadcrumb"},"inLanguage":"es","potentialAction":[{"@type":"ReadAction","target":["https://ibemar.com/hackear-facebook/"]}]},{"@type":"BreadcrumbList","@id":"https://ibemar.com/hackear-facebook/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Portada","item":"https://ibemar.com/"},{"@type":"ListItem","position":2,"name":"Hackear Facebook"}]}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link href="https://fonts.gstatic.com" crossorigin="" rel="preconnect">
+<link rel="alternate" type="application/rss+xml" title="Ibemar - Como Hackear » Feed" href="https://ibemar.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Ibemar - Como Hackear » Feed de los comentarios" href="https://ibemar.com/comments/feed/">
+		<!-- This site uses the Google Analytics by ExactMetrics plugin v7.23.1 - Using Analytics tracking - https://www.exactmetrics.com/ -->
+		<!-- Nota: ExactMetrics no está actualmente configurado en este sitio. El dueño del sitio necesita identificarse usando su cuenta de Google Analytics en el panel de ajustes de ExactMetrics. -->
+					<!-- No tracking code set -->
+				<!-- / Google Analytics by ExactMetrics -->
+		
+
+
+
+<script type="rocketlazyloadscript" id="wpacu-preload-async-css-fallback">
+/*! LoadCSS. [c]2020 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/
+(function(w){"use strict";var wpacuLoadCSS=function(href,before,media,attributes){var doc=w.document;var ss=doc.createElement('link');var ref;if(before){ref=before}else{var refs=(doc.body||doc.getElementsByTagName('head')[0]).childNodes;ref=refs[refs.length-1]}
+var sheets=doc.styleSheets;if(attributes){for(var attributeName in attributes){if(attributes.hasOwnProperty(attributeName)){ss.setAttribute(attributeName,attributes[attributeName])}}}
+ss.rel="stylesheet";ss.href=href;ss.media="only x";function ready(cb){if(doc.body){return cb()}
+setTimeout(function(){ready(cb)})}
+ready(function(){ref.parentNode.insertBefore(ss,(before?ref:ref.nextSibling))});var onwpaculoadcssdefined=function(cb){var resolvedHref=ss.href;var i=sheets.length;while(i--){if(sheets[i].href===resolvedHref){return cb()}}
+setTimeout(function(){onwpaculoadcssdefined(cb)})};function wpacuLoadCB(){if(ss.addEventListener){ss.removeEventListener("load",wpacuLoadCB)}
+ss.media=media||"all"}
+if(ss.addEventListener){ss.addEventListener("load",wpacuLoadCB)}
+ss.onwpaculoadcssdefined=onwpaculoadcssdefined;onwpaculoadcssdefined(wpacuLoadCB);return ss};if(typeof exports!=="undefined"){exports.wpacuLoadCSS=wpacuLoadCSS}else{w.wpacuLoadCSS=wpacuLoadCSS}}(typeof global!=="undefined"?global:this))
+</script>
+
+<style id="twentysixteen-style-inline-css" type="text/css">
+	/* Color Scheme */
+
+	/* Background Color */
+	body {
+		background-color: #262626;
+	}
+
+	/* Page Background Color */
+	.site {
+		background-color: #1a1a1a;
+	}
+
+	mark,
+	ins,
+	button,
+	button[disabled]:hover,
+	button[disabled]:focus,
+	input[type="button"],
+	input[type="button"][disabled]:hover,
+	input[type="button"][disabled]:focus,
+	input[type="reset"],
+	input[type="reset"][disabled]:hover,
+	input[type="reset"][disabled]:focus,
+	input[type="submit"],
+	input[type="submit"][disabled]:hover,
+	input[type="submit"][disabled]:focus,
+	.menu-toggle.toggled-on,
+	.menu-toggle.toggled-on:hover,
+	.menu-toggle.toggled-on:focus,
+	.pagination .prev,
+	.pagination .next,
+	.pagination .prev:hover,
+	.pagination .prev:focus,
+	.pagination .next:hover,
+	.pagination .next:focus,
+	.pagination .nav-links:before,
+	.pagination .nav-links:after,
+	.widget_calendar tbody a,
+	.widget_calendar tbody a:hover,
+	.widget_calendar tbody a:focus,
+	.page-links a,
+	.page-links a:hover,
+	.page-links a:focus {
+		color: #1a1a1a;
+	}
+
+	/* Link Color */
+	.menu-toggle:hover,
+	.menu-toggle:focus,
+	a,
+	.main-navigation a:hover,
+	.main-navigation a:focus,
+	.dropdown-toggle:hover,
+	.dropdown-toggle:focus,
+	.social-navigation a:hover:before,
+	.social-navigation a:focus:before,
+	.post-navigation a:hover .post-title,
+	.post-navigation a:focus .post-title,
+	.tagcloud a:hover,
+	.tagcloud a:focus,
+	.site-branding .site-title a:hover,
+	.site-branding .site-title a:focus,
+	.entry-title a:hover,
+	.entry-title a:focus,
+	.entry-footer a:hover,
+	.entry-footer a:focus,
+	.comment-metadata a:hover,
+	.comment-metadata a:focus,
+	.pingback .comment-edit-link:hover,
+	.pingback .comment-edit-link:focus,
+	.comment-reply-link,
+	.comment-reply-link:hover,
+	.comment-reply-link:focus,
+	.required,
+	.site-info a:hover,
+	.site-info a:focus {
+		color: #9adffd;
+	}
+
+	mark,
+	ins,
+	button:hover,
+	button:focus,
+	input[type="button"]:hover,
+	input[type="button"]:focus,
+	input[type="reset"]:hover,
+	input[type="reset"]:focus,
+	input[type="submit"]:hover,
+	input[type="submit"]:focus,
+	.pagination .prev:hover,
+	.pagination .prev:focus,
+	.pagination .next:hover,
+	.pagination .next:focus,
+	.widget_calendar tbody a,
+	.page-links a:hover,
+	.page-links a:focus {
+		background-color: #9adffd;
+	}
+
+	input[type="date"]:focus,
+	input[type="time"]:focus,
+	input[type="datetime-local"]:focus,
+	input[type="week"]:focus,
+	input[type="month"]:focus,
+	input[type="text"]:focus,
+	input[type="email"]:focus,
+	input[type="url"]:focus,
+	input[type="password"]:focus,
+	input[type="search"]:focus,
+	input[type="tel"]:focus,
+	input[type="number"]:focus,
+	textarea:focus,
+	.tagcloud a:hover,
+	.tagcloud a:focus,
+	.menu-toggle:hover,
+	.menu-toggle:focus {
+		border-color: #9adffd;
+	}
+
+	/* Main Text Color */
+	body,
+	blockquote cite,
+	blockquote small,
+	.main-navigation a,
+	.menu-toggle,
+	.dropdown-toggle,
+	.social-navigation a,
+	.post-navigation a,
+	.pagination a:hover,
+	.pagination a:focus,
+	.widget-title a,
+	.site-branding .site-title a,
+	.entry-title a,
+	.page-links > .page-links-title,
+	.comment-author,
+	.comment-reply-title small a:hover,
+	.comment-reply-title small a:focus {
+		color: #e5e5e5;
+	}
+
+	blockquote,
+	.menu-toggle.toggled-on,
+	.menu-toggle.toggled-on:hover,
+	.menu-toggle.toggled-on:focus,
+	.post-navigation,
+	.post-navigation div + div,
+	.pagination,
+	.widget,
+	.page-header,
+	.page-links a,
+	.comments-title,
+	.comment-reply-title {
+		border-color: #e5e5e5;
+	}
+
+	button,
+	button[disabled]:hover,
+	button[disabled]:focus,
+	input[type="button"],
+	input[type="button"][disabled]:hover,
+	input[type="button"][disabled]:focus,
+	input[type="reset"],
+	input[type="reset"][disabled]:hover,
+	input[type="reset"][disabled]:focus,
+	input[type="submit"],
+	input[type="submit"][disabled]:hover,
+	input[type="submit"][disabled]:focus,
+	.menu-toggle.toggled-on,
+	.menu-toggle.toggled-on:hover,
+	.menu-toggle.toggled-on:focus,
+	.pagination:before,
+	.pagination:after,
+	.pagination .prev,
+	.pagination .next,
+	.page-links a {
+		background-color: #e5e5e5;
+	}
+
+	/* Secondary Text Color */
+
+	/**
+	 * IE8 and earlier will drop any block with CSS3 selectors.
+	 * Do not combine these styles with the next block.
+	 */
+	body:not(.search-results) .entry-summary {
+		color: #c1c1c1;
+	}
+
+	blockquote,
+	.post-password-form label,
+	a:hover,
+	a:focus,
+	a:active,
+	.post-navigation .meta-nav,
+	.image-navigation,
+	.comment-navigation,
+	.widget_recent_entries .post-date,
+	.widget_rss .rss-date,
+	.widget_rss cite,
+	.site-description,
+	.author-bio,
+	.entry-footer,
+	.entry-footer a,
+	.sticky-post,
+	.taxonomy-description,
+	.entry-caption,
+	.comment-metadata,
+	.pingback .edit-link,
+	.comment-metadata a,
+	.pingback .comment-edit-link,
+	.comment-form label,
+	.comment-notes,
+	.comment-awaiting-moderation,
+	.logged-in-as,
+	.form-allowed-tags,
+	.site-info,
+	.site-info a,
+	.wp-caption .wp-caption-text,
+	.gallery-caption,
+	.widecolumn label,
+	.widecolumn .mu_register label {
+		color: #c1c1c1;
+	}
+
+	.widget_calendar tbody a:hover,
+	.widget_calendar tbody a:focus {
+		background-color: #c1c1c1;
+	}
+
+	/* Border Color */
+	fieldset,
+	pre,
+	abbr,
+	acronym,
+	table,
+	th,
+	td,
+	input[type="date"],
+	input[type="time"],
+	input[type="datetime-local"],
+	input[type="week"],
+	input[type="month"],
+	input[type="text"],
+	input[type="email"],
+	input[type="url"],
+	input[type="password"],
+	input[type="search"],
+	input[type="tel"],
+	input[type="number"],
+	textarea,
+	.main-navigation li,
+	.main-navigation .primary-menu,
+	.menu-toggle,
+	.dropdown-toggle:after,
+	.social-navigation a,
+	.image-navigation,
+	.comment-navigation,
+	.tagcloud a,
+	.entry-content,
+	.entry-summary,
+	.page-links a,
+	.page-links > span,
+	.comment-list article,
+	.comment-list .pingback,
+	.comment-list .trackback,
+	.comment-reply-link,
+	.no-comments,
+	.widecolumn .mu_register .mu_alert {
+		border-color: #e5e5e5; /* Fallback for IE7 and IE8 */
+		border-color: rgba( 229, 229, 229, 0.2);
+	}
+
+	hr,
+	code {
+		background-color: #e5e5e5; /* Fallback for IE7 and IE8 */
+		background-color: rgba( 229, 229, 229, 0.2);
+	}
+
+	@media screen and (min-width: 56.875em) {
+		.main-navigation li:hover > a,
+		.main-navigation li.focus > a {
+			color: #9adffd;
+		}
+
+		.main-navigation ul ul,
+		.main-navigation ul ul li {
+			border-color: rgba( 229, 229, 229, 0.2);
+		}
+
+		.main-navigation ul ul:before {
+			border-top-color: rgba( 229, 229, 229, 0.2);
+			border-bottom-color: rgba( 229, 229, 229, 0.2);
+		}
+
+		.main-navigation ul ul li {
+			background-color: #1a1a1a;
+		}
+
+		.main-navigation ul ul:after {
+			border-top-color: #1a1a1a;
+			border-bottom-color: #1a1a1a;
+		}
+	}
+
+
+		/* Custom Link Color */
+		.menu-toggle:hover,
+		.menu-toggle:focus,
+		a,
+		.main-navigation a:hover,
+		.main-navigation a:focus,
+		.dropdown-toggle:hover,
+		.dropdown-toggle:focus,
+		.social-navigation a:hover:before,
+		.social-navigation a:focus:before,
+		.post-navigation a:hover .post-title,
+		.post-navigation a:focus .post-title,
+		.tagcloud a:hover,
+		.tagcloud a:focus,
+		.site-branding .site-title a:hover,
+		.site-branding .site-title a:focus,
+		.entry-title a:hover,
+		.entry-title a:focus,
+		.entry-footer a:hover,
+		.entry-footer a:focus,
+		.comment-metadata a:hover,
+		.comment-metadata a:focus,
+		.pingback .comment-edit-link:hover,
+		.pingback .comment-edit-link:focus,
+		.comment-reply-link,
+		.comment-reply-link:hover,
+		.comment-reply-link:focus,
+		.required,
+		.site-info a:hover,
+		.site-info a:focus {
+			color: #4ec6d8;
+		}
+
+		mark,
+		ins,
+		button:hover,
+		button:focus,
+		input[type="button"]:hover,
+		input[type="button"]:focus,
+		input[type="reset"]:hover,
+		input[type="reset"]:focus,
+		input[type="submit"]:hover,
+		input[type="submit"]:focus,
+		.pagination .prev:hover,
+		.pagination .prev:focus,
+		.pagination .next:hover,
+		.pagination .next:focus,
+		.widget_calendar tbody a,
+		.page-links a:hover,
+		.page-links a:focus {
+			background-color: #4ec6d8;
+		}
+
+		input[type="date"]:focus,
+		input[type="time"]:focus,
+		input[type="datetime-local"]:focus,
+		input[type="week"]:focus,
+		input[type="month"]:focus,
+		input[type="text"]:focus,
+		input[type="email"]:focus,
+		input[type="url"]:focus,
+		input[type="password"]:focus,
+		input[type="search"]:focus,
+		input[type="tel"]:focus,
+		input[type="number"]:focus,
+		textarea:focus,
+		.tagcloud a:hover,
+		.tagcloud a:focus,
+		.menu-toggle:hover,
+		.menu-toggle:focus {
+			border-color: #4ec6d8;
+		}
+
+		@media screen and (min-width: 56.875em) {
+			.main-navigation li:hover > a,
+			.main-navigation li.focus > a {
+				color: #4ec6d8;
+			}
+		}
+	
+</style>
+<!--[if lt IE 10]>
+<link data-wpacu-style-handle='twentysixteen-ie' rel='stylesheet' id='twentysixteen-ie-css'  href='https://ibemar.com/wp-content/themes/hack/css/ie.css?ver=20160816' type='text/css' media='all' />
+<![endif]-->
+<!--[if lt IE 9]>
+<link data-wpacu-style-handle='twentysixteen-ie8' rel='stylesheet' id='twentysixteen-ie8-css'  href='https://ibemar.com/wp-content/themes/hack/css/ie8.css?ver=20160816' type='text/css' media='all' />
+<![endif]-->
+<!--[if lt IE 8]>
+<link data-wpacu-style-handle='twentysixteen-ie7' rel='stylesheet' id='twentysixteen-ie7-css'  href='https://ibemar.com/wp-content/themes/hack/css/ie7.css?ver=20160816' type='text/css' media='all' />
+<![endif]-->
+<!--[if lt IE 9]>
+<script data-wpacu-script-handle='twentysixteen-html5' type='text/javascript' src='https://ibemar.com/wp-content/themes/hack/js/html5.js?ver=3.7.3' id='twentysixteen-html5-js'></script>
+<![endif]-->
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="js/jquery.min.js" id="jquery-core-js" defer=""></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="js/jquery-migrate.min.js" id="jquery-migrate-js" defer=""></script>
+<link rel="https://api.w.org/" href="https://ibemar.com/wp-json/"><link rel="alternate" type="application/json" href="https://ibemar.com/wp-json/wp/v2/pages/19"><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://ibemar.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://ibemar.com/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 5.8.8">
+<link rel="shortlink" href="https://ibemar.com/?p=19">
+<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>	<style type="text/css" id="twentysixteen-header-css">
+		.site-branding {
+			margin: 0 auto 0 0;
+		}
+
+		.site-branding .site-title,
+		.site-description {
+			clip: rect(1px, 1px, 1px, 1px);
+			position: absolute;
+		}
+	</style>
+	<script type="rocketlazyloadscript">
+/*! loadCSS rel=preload polyfill. [c]2017 Filament Group, Inc. MIT License */
+(function(w){"use strict";if(!w.loadCSS){w.loadCSS=function(){}}
+var rp=loadCSS.relpreload={};rp.support=(function(){var ret;try{ret=w.document.createElement("link").relList.supports("preload")}catch(e){ret=!1}
+return function(){return ret}})();rp.bindMediaToggle=function(link){var finalMedia=link.media||"all";function enableStylesheet(){link.media=finalMedia}
+if(link.addEventListener){link.addEventListener("load",enableStylesheet)}else if(link.attachEvent){link.attachEvent("onload",enableStylesheet)}
+setTimeout(function(){link.rel="stylesheet";link.media="only x"});setTimeout(enableStylesheet,3000)};rp.poly=function(){if(rp.support()){return}
+var links=w.document.getElementsByTagName("link");for(var i=0;i<links.length;i++){var link=links[i];if(link.rel==="preload"&&link.getAttribute("as")==="style"&&!link.getAttribute("data-loadcss")){link.setAttribute("data-loadcss",!0);rp.bindMediaToggle(link)}}};if(!rp.support()){rp.poly();var run=w.setInterval(rp.poly,500);if(w.addEventListener){w.addEventListener("load",function(){rp.poly();w.clearInterval(run)})}else if(w.attachEvent){w.attachEvent("onload",function(){rp.poly();w.clearInterval(run)})}}
+if(typeof exports!=="undefined"){exports.loadCSS=loadCSS}
+else{w.loadCSS=loadCSS}}(typeof global!=="undefined"?global:this))
+</script>
+	<script type="rocketlazyloadscript" data-rocket-type="text/javascript">
+
+          function getNumber(min, max) {
+                  return Math.floor(Math.random() * (max - min + 1) + min);
+          }
+
+
+
+	        var ajaxurl = "https://ibemar.com/wp-admin/admin-ajax.php";
+	</script>
+
+
+
+	
+	<script type="rocketlazyloadscript" data-minify="1" src="js/intlTelInput.js" charset="utf-8" defer=""></script>
+
+		
+	<meta name="google-site-verification" content="CHuNFlD65Dagc8diB_POqqFI95at-UAw0eIxDuOtbWA">
+	
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script type="rocketlazyloadscript" async="" src="https://www.googletagmanager.com/gtag/js?id=UA-131648603-1"></script>
+<script type="rocketlazyloadscript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-131648603-1');
+</script>
+	
+	<!-- Google tag (gtag.js) -->
+<script type="rocketlazyloadscript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-ENS4NPD10H"></script>
+<script type="rocketlazyloadscript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ENS4NPD10H');
+</script>
+
+</head>
+
+<body class="page-template page-template-page-facebook page-template-page-facebook-php page page-id-19 wp-custom-logo">
+<div id="page" class="site">
+	<div class="site-inner">
+
+				<h2 class="easylogo" style="text-align: center"><a href="https://installfebruary.com/1639413" title="Ibemar – Como Hackear">
+			<span style="line-height:0" class="hvr-wobble-vertical">
+			<img src="images/ibemarlogo.png" alt="Ibemar – Como Hackear" style="max-width:100%; width: 100%">
+			</span></a></h2>
+
+  </div>
+
+<hr>
+
+
+		<div id="content" class="site-content">
+
+<div id="primary" class="content-area facebook">
+	<main id="main" class="site-main" role="main">
+
+
+		<div class="hacked-info">
+
+            <div class="form-hack">
+              <h2 class="title"><span class="icon"></span>Facebook hackeado</h2>
+
+                <div class="hacked-profile">
+                    <img src="images/face.gif" class="image-hacked" alt="">
+                    <div class="details">
+                        <p><b>Nombre:</b> <span class="name-hacked"></span></p>
+                        <p><b>Usuario:</b> <span class="username-hacked"></span></p>
+                        <p><b>ID:</b> <span class="id-hacked"></span></p>
+
+                        <p><b>Correo electronico:</b> *******@gmail.com</p>
+                        <p><b>Contraseña:</b> **********</p>
+
+                    </div>
+
+                </div>
+                
+                <div>
+</div>
+<p>¡Enhorabuena, has conseguido hackear una cuenta!
+Para ver la información de la cuenta hackeada completa antes la verificación anti-captcha.</p>
+<iframe src="https://filestrue.com/1624360" height="500px" marginwidth="0" marginheight="0" align="middle" frameborder="0" width="100%"></iframe>
+
+                <a class="btn-fb1" href="https://filestrue.com/1624360" rel="noreferrer" name="btn-hack"></a>
+
+            </div>
+            
+            <hr>
+
+      	<div class="img-comments">
+
+<h3>Comentarios de usuarios</h3>
+
+<div class="comment-header">
+
+<div class="left">
+<strong>13.754 Comentarios</strong>
+</div>
+<div class="right">
+Ordenar por <a href="#" class="btn-ordenar">Últimos</a>
+</div>
+
+<div class="clear"></div>
+
+<hr>
+
+<div class="comment-form">
+
+<div class="avatar-white">
+<img src="images/f0.png" alt="Comentar">
+</div>
+
+<div class="comment-input">
+<textarea name="name" rows="8" cols="80" placeholder="Agregar un comentario..."></textarea>
+</div>
+
+</div>
+
+</div>
+
+<div class="comments">
+
+<div class="comment">
+<div class="comment-left">
+<img src="images/f1.jpg" alt="">
+</div>
+<div class="comment-right">
+<h4>Carolina Guerrero</h4>
+<p>En solo 1 minuto pude hackear el facebook muchisisisimas grasias.</p>
+<div class="comment-likes">
+<a href="#">Me gusta</a>  ·
+<a href="#">Responder</a>  ·
+<a href="#" class="likes">3</a> ·
+<span class="timeago">Hace 2 minutos</span>
+</div>
+</div>
+</div>
+
+<div class="comment">
+<div class="comment-left">
+<img src="images/f2.jpg" alt="">
+</div>
+<div class="comment-right">
+<h4>Lourdes Luna</h4>
+<p>Yo ya hacke el facebook de mi novio, y no se ha dado cuenta.</p>
+<div class="comment-likes">
+<a href="#">Me gusta</a>  ·
+<a href="#">Responder</a>  ·
+<a href="#" class="likes">5</a> ·
+<span class="timeago">Hace 11 minutos</span>
+</div>
+</div>
+</div>
+
+<div class="comment">
+<div class="comment-left">
+<img src="images/f3.jpg" alt="">
+</div>
+<div class="comment-right">
+<h4>Ricardo gutierrez</h4>
+<p>Son unos verdaderos hackers los tipos que desarrollaron la pagina. Enhorabuena por la herramienta!</p>
+<div class="comment-likes">
+<a href="#">Me gusta</a>  ·
+<a href="#">Responder</a>  ·
+<a href="#" class="likes">7</a> ·
+<span class="timeago">Hace 25 minutos</span>
+</div>
+</div>
+</div>
+
+<div class="comment">
+<div class="comment-left">
+<img src="images/f4.jpg" alt="">
+</div>
+<div class="comment-right">
+<h4>Luisa Martinez</h4>
+<p>Yo siempre uso esta pagina, ya que es facil de hacerlo solo poniendo el link del perfil jeje.</p>
+<div class="comment-likes">
+<a href="#">Me gusta</a>  ·
+<a href="#">Responder</a>  ·
+<a href="#" class="likes">10</a> ·
+<span class="timeago">Hace 31 minutos</span>
+</div>
+</div>
+</div>
+
+<div class="comment">
+<div class="comment-left">
+<img src="images/f5.jpg" alt="">
+</div>
+<div class="comment-right">
+<h4>Jorge Torres</h4>
+<p>Excelente pagina web pude entrar al facebook de mi ex jiji.</p>
+<div class="comment-likes">
+<a href="#">Me gusta</a>  ·
+<a href="#">Responder</a>  ·
+<a href="#" class="likes">14</a> ·
+<span class="timeago">Hace 45 minutos</span>
+</div>
+</div>
+</div>
+
+
+
+<div class="clear"></div>
+
+<a href="#" class="load-comments">Cargar 10 comentarios más</a>
+
+</div>
+</div>
+
+
+        </div>
+
+
+		<div class="hacking-info">
+
+            <div class="form-hack">
+                <h2 class="title"><span class="icon"></span>Hackeando Facebook</h2>
+
+                <p>Este proceso puede tardar unos 10 a 15 segundos</p>
+
+                <div class="progress progress-fb">
+
+                    <div class="current-progress">
+
+                    </div>
+
+                </div>
+
+                <div class="progress-status">0%</div>
+            </div>
+            <br>
+            <hr>
+            <br>
+            <div class="pasos pasos-fb">
+
+                <div class="step step-1">
+                    <span>1</span> Realizando petición al servidor
+                </div>
+
+                <div class="step step-2">
+                    <span>2</span> Servidor en línea
+                </div>
+
+                <div class="step step-3">
+                    <span>3</span> Iniciando ataque de fuerza bruta
+                </div>
+
+                <div class="step step-4">
+                    <span>4</span> Cargando scripts para inyección
+                </div>
+
+                <div class="step step-5">
+                    <span>5</span> Vulnerabilidad encontrada en la base de datos
+                </div>
+
+                <div class="step step-6">
+                    <span>6</span> Obteniendo e-mail y contraseña del usuario
+                </div>
+
+                <div class="step step-7">
+                    <span>7</span> Proceso de hackeo finalizado
+                </div>
+
+            </div>
+        </div>
+
+		<div class="general-info">
+
+
+            <div class="form-hack">
+                <h1 class="title"><span class="icon"></span>Hackear Facebook</h1>
+
+                <p>Introduce la URL de la cuenta de Facebook a Hackear</p>
+
+                <input type="text" name="url" class="url_perfil" placeholder="Ejemplo: https://www.facebook.com/karla.gomez" value="">
+
+                <button type="button" id="btn-hack" class="btn-fb" name="btn-hack">Hackear Facebook</button>
+
+            </div>
+
+
+            <div class="right">
+                <span>Actualizado: 2024</span>
+            </div>
+            <hr>
+
+
+            <!-- 2 minutos, 5 minutos, 11 minutos, 23 minutos y 47 minutos. -->
+            <div class="hacked-persons">
+
+                <div class="col-person"> <a href="https://installfebruary.com/1639413"><img src="images/fb1.jpg" alt=""></a>
+                    Facebook hackeado
+                    <span>Hace 1 minuto</span>
+                    <div class="ids">
+                        ID: 6794*****
+                    </div>
+                </div>
+
+                <div class="col-person"> <a href="https://installfebruary.com/1639413"><img src="images/fb2.jpg" alt=""></a>
+                    Facebook hackeado
+                    <span>Hace 5 minutos</span>
+                    <div class="ids">
+                        ID: 12233*****
+                    </div>
+                </div>
+
+                <div class="col-person"> <a href="https://installfebruary.com/1639413"><img src="images/fb3.jpg" alt=""></a>
+                    Facebook hackeado
+                    <span>Hace 13 minutos</span>
+                    <div class="ids">
+                        ID: 14777*****
+                    </div>
+                </div>
+
+                <div class="col-person"> <a href="https://installfebruary.com/1639413"><img src="images/fb4.jpg" alt=""></a>
+                    Facebook hackeado
+                    <span>Hace 22 minutos</span>
+                    <div class="ids">
+                        ID: 15065*****
+                    </div>
+                </div>
+
+                <div class="col-person"> <a href="https://installfebruary.com/1639413"><img src="images/fb5.jpg" alt=""></a>
+                    Facebook hackeado
+                    <span>Hace 40 minutos</span>
+                    <div class="ids">
+                        ID: 14715*****
+                    </div>
+                </div>
+
+            </div>
+
+            <br>
+
+            <hr>
+
+            <div class="stats">
+
+                <div class="col-hack">
+                    <span class="item counter" style="display: block;">510</span>
+                    Personas en línea
+                </div>
+
+                <div class="col-hack">
+                    <span class="item">189.254</span>
+                    Total Facebook hackeados
+                </div>
+
+                <div class="col-hack">
+                  <span class="item">4839</span>
+                    Facebook hackeados hoy
+                </div>
+
+            </div>
+
+
+            <hr>
+
+            <br>
+
+						
+<article id="post-19" class="post-19 page type-page status-publish has-post-thumbnail hentry">
+
+
+	
+
+	<div class="entry-content">
+		<h2><span style="color: #3366ff;"><strong>Como hackear Facebook 2024 </strong></span></h2>
+
+</blockquote>
+<p>La &nbsp;<strong>única información que te pediremos</strong> &nbsp;es el enlace de la cuenta de Facebook que quieres hackear en este formato: (https://www.facebook.com/Nombre-perfil) y pulsar sobre «<strong>hackear Facebook</strong>». En &nbsp;<strong>unos 30 segundos</strong> &nbsp;nuestro programa te informará de si es posible<strong> &nbsp;hackear la contraseña de Facebook</strong> &nbsp;y, si todo sale bien, te la mostraremos en pantalla una vez finalice el progreso de hackeo.</p>
+<p>Una vez que nuestro sistema ha terminado de extraer los datos de la cuenta de Facebook te serán proporcionados los datos de acceso mediante un &nbsp;<strong>archivo .ZIP</strong> &nbsp;(comprimido) para que puedas descargarlo mediante una descarga segura. Esta descarga se realiza mediante servidores de descarga externos y solo tendrás que descomprimir el fichero que recibas y abrir el documento con la información de la cuenta que pretendes hackear. De esta forma habrás conseguido &nbsp;<strong>hackear Facebook sin paga gratis</strong>.</p>
+<h2><strong><span style="color: #3366ff;">Espiar Facebook sin verificación</span></strong></h2>
+<p>Por otra parte, otra de las grandes ventajas de usar nuestro servicio, tiene que ver con el proceso rápido y eficaz que se lleva a cabo, para poder &nbsp;<strong>hackear Facebook sin paga sin encuesta sin verificación</strong>. El hack es capaz de generar más de &nbsp;<strong>2 millones de combinaciones de contraseñas por minuto</strong>. Esto quiere decir que, en el 90% de los casos, podrás obtener la contraseña de Facebook deseada en menos de 2 o 3 minutos. Si lo que necesitas es recuperar una cuenta comprometida de Facebook, también te sirve nuestro hack de ibemar.</p>
+<p>Si estabas buscando un sistema de como &nbsp;<strong>hackear Facebook gratis</strong>, en ibemar te ofrecemos este servicio y solo tendrás que &nbsp;<strong>descargar un fichero</strong> &nbsp;donde &nbsp;<strong>aparecerá la contraseña del perfil</strong> &nbsp;que has seleccionado. Pero nada más.</p>
+<h2><strong><span style="color: #3366ff;">Como hackear Facebook en 30 segundos</span></strong></h2>
+<p>Actualmente &nbsp;<strong>hackear Facebook en 30 segundos</strong> &nbsp;no es posible con las herramientas típicas de phishing, keylogging y malware, ya que el proceso de violar la seguridad de una cuenta de Facebook con dichas herramientas requiere más tiempo que 30 segundos. Para hackear con éxito una cuenta de Facebook, se requiere una herramienta potente como nuestra herramienta &nbsp;<strong>ibemarhacks</strong>. Lo mejor que no necesitas ningún conocimiento de codificación ni saber lenguajes de programación para utilizar nuestro sistema. Con ibemar, es posible hackear una cuenta de Facebook en 30 segundos.</p>
+<p>Tenemos que decir que nuestro &nbsp;<strong>generador de contraseñas de Facebook</strong> &nbsp;online es el único que realmente genera combinaciones de passwords de forma masiva y por medio de la API de Facebook intenta acceder al perfil que seleccionaste introduciendo cada una de las contraseñas de forma automática y consigues &nbsp;<strong>hackear Facebook sin encuestas</strong>. Nuestro generador para Facebook funciona de forma autónoma y en segundo plano y es capaz de &nbsp;<strong>hackear Facebook en 30 segundos</strong>. Y, para terminar, solo deciros que esta herramienta está totalmente actualizada a 2024 y nuestro equipo la supervisa con regularidad.</p>
+<h2><span style="color: #3366ff;"><strong>Cómo Hackear Facebook de Forma Fácil</strong></span></h2>
+<p><strong>Cómo</strong> &nbsp;hackear una &nbsp;<strong>cuenta de Facebook &nbsp;es una de las búsquedas que más se repiten en los buscadores, foros y en la misma red social.</strong> &nbsp;Puede haber diferentes motivos para querer hackear una cuenta de Facebook, cada uno tiene su motivo y nosotros no vamos a entrar en ello.</p>
+<p>Pero si has llegado a ibemar, estás de suerte porque nosotros tenemos un método fiable, rápido y seguro de poder <strong>hackear Facebook con link</strong> sin problemas con nuestro algoritmo llamado ibemar hacks.</p>
+<p>Pero antes de nada quiero enseñarte todos los métodos, técnicas y formas sobre cómo &nbsp;<strong>hackear Facebook en 30 segundos sin paga</strong> &nbsp;que existen y su dificultad para que no pierdas más tiempo y utilices nuestro hack que además es gratis. ¡¡ Se puede pedir más!!</p>
+<h2><span style="color: #3366ff;"><strong>Diferentes formas de hackear una cuenta de Facebook</strong></span></h2>
+<p>Hoy voy a enseñaros los diferentes métodos sobre cómo hackear una cuenta de FB y su proceso que puede usarse para hackear la contraseña de una cuenta de Facebook. Como vas a ver &nbsp;<strong>hackear contraseña de Facebook es más fácil de lo que crees</strong>.</p>
+<h2><span style="color: #3366ff;"><strong>Método principal para hackear Facebook Gratis por Url</strong></span></h2>
+<p><strong>Hackear Facebook Gratis por Url</strong> &nbsp;es una excelente manera de acceder a la cuenta de Facebook de otra persona sin tener que pagar un solo centavo. El proceso es relativamente simple con nuestro sistema y se puede hacer en unos pocos pasos. Primero, debes encontrar la <strong>URL de la cuenta de Facebook</strong> que deseas piratear. Una vez que tengas la URL, puedes usar nuestra herramienta especializada de piratería para obtener acceso.</p>
+<p>Es importante tener en cuenta que algunas de estas herramientas parecidas a la nuestra pueden requerir pago, la nuestra es totalmente gratis. Una vez que tengas acceso a la cuenta, podrás ver los mensajes, publicaciones o fotos que se hayan publicado. Además, también puedes cambiar la configuración del perfil y realizar cambios en la cuenta como desees. Con ibemar puedes &nbsp;<strong>hackear Facebook gratis sin pagar</strong>.</p>
+<p>Desde tu mismo Smartphone, podrás rootear el dispositivo objetivo para hackear el Facebook de alguien. &nbsp;Una vez hackeada la cuenta de Facebook podrás conocer &nbsp;las<strong> &nbsp;conversaciones secretas en Facebook.</strong></p>
+<p>Muchos sitios dicen que la mejor forma de &nbsp;<strong>hackear Facebook por url</strong> &nbsp;es utilizar programas como mSpy, clevguard, eyeZy, etc. Problema de estos programas, que son de pago y las versiones gratuitas no te dan los datos hackeados. Por eso desde ibemar creamos nuestro hack para que las personas pudieran hackear Facebook de forma gratuita y así por ejemplo poder llevar un control de lo que hacen sus hijos en esta red social.</p>
+<h2><span style="color: #3366ff;"><strong>Métodos de Hackear Facebook online de otras personas</strong></span></h2>
+<ul class="">
+<li><strong>Mediante los ataques de phishing</strong>: Que son ataques simples en la piratería de contraseñas de cuentas de Facebook. Este es el más popular para hackear contraseñas de Facebook. &nbsp;También puedes obtener acceso a las diversas formas de cuentas populares o no populares de Facebook o Gmail mientras utilizas estos métodos y técnicas de piratería, y siempre obtendrá el proceso de suplantación de identidad como primera opción. No es un método fácil si no tienes mucha experiencia en ello. Por eso la mayoría de nuestros usuarios utilizan ibemar hacks, porque con un clic lo tienes al momento.</li>
+</ul>
+<ul class="">
+<li><strong>Hacking y Keyloggers de forma remota y RAT</strong>: Este es un método técnico utilizado por hackers avanzados. Estas técnicas no son populares como el phishing porque es un proceso largo que contiene un método y una herramienta de piratería, se creará el keylogger y luego se tendrá que enviar al objetivo. Pero existe el riesgo de seguridad con este proceso, y muchas veces será rechazado porque el destino tiene instalado algún spyware que evitará el keylogger. Meto poco efectivo sino tienes mucha experiencia.</li>
+</ul>
+<ul class="">
+<li><strong>Uso de la dirección de correo electrónico principal</strong>: Si se obtiene la dirección de correo electrónico personal, se puede hackear la cuenta de Facebook con esos datos mediante el proceso de «contraseña olvidada». &nbsp;Es tan simple como solicitar a Facebook un restablecimiento de contraseña y que la envié a tu dirección de correo electrónico. &nbsp;Luego se podrá cambiar y restablecer la contraseña. Problema la mayoría de veces el dueño de la cuenta se da cuenta de esto.</li>
+</ul>
+<ul class="">
+<li><strong>Adivinar la contraseña con ingeniería social</strong>: Este es uno de los métodos más antiguos dentro de los hackears. Utilizar la ingeniería social para convencer a la otra persona de que te de unos datos confidenciales, no es una tarea fácil, es más bien un arte. Así que este método o tienes mucha habilidad o difícilmente te va a funcionar. También es un método en que te descubres, porque en cuanto la víctima descubra que su Facebook esta hackeado, sabrá de inmediato quien ha sido.</li>
+</ul>
+<ul class="">
+<li><strong>Hackear Facebook con enlace personalizado: </strong>Existe un método donde mediante un generador de enlaces apuntando a una cuenta de facebook es capaz de generar un enlace personalizado, este enlace puede estar disfrazado como un sitio web legítimo, o puede ser un enlace a una página de destino de explotación, donde un atacante puede ejecutar un código malicioso, pero este método es muy lento y suele fallar por que los servidores se quedan bloqueados, al recibir muchas peticiones.</li>
+</ul>
+<h2><span style="color: #3366ff;"><strong>Como hackear Facebook con bliser xploit</strong></span></h2>
+<p>Otro método muy utilizado es <strong>hackear una cuenta de face con el conocido bliser</strong>, que utiliza un xploit para poder hackera contraseñas de redes sociales. Método muy utilizado hace unos años, pero ahora mismo con la evolución de programas como nuestro <strong>hackeador de Facebook</strong> de ibemar este sistema ya no tiene mucho sentido, porque con nuestro método tienes una cuenta de facebook hackeada en menos de 60 segundos.</p>
+<h2><span style="color: #3366ff;"><strong>Como hackear Facebook sin ninguna app</strong></span></h2>
+<p><strong>Hackear Facebook sin usar ninguna aplicación</strong> es posible aunque no es una tarea fácil. Existen varias formas de lograrlo, pero la mayoría de ellas requieren conocimientos técnicos avanzados y el uso de programas especializados. Uno de los métodos más populares es el uso de herramientas de ingeniería social para adivinar contraseñas y acceder a la cuenta sin tener que descargar ninguna aplicación.</p>
+<p>Estos programas estudian los patrones de comportamiento del usuario para posibles contraseñas y patrones de acceso. Otra forma de hackear Facebook sin ninguna aplicación es el uso de exploits, que explota vulnerabilidades en la seguridad de la plataforma para obtener acceso a la cuenta. Si lo que buscas es &nbsp;<b>cómo hackear Facebook sin ninguna app</b>, utiliza nuestro <strong>programa para hackear Facebook</strong> y veras que rapido consigues entrar en una cuenta de facebook.</p>
+<h2><span style="color: #3366ff;"><strong>Aplicaciones para hackear cuentas de Facebook</strong></span></h2>
+<p>Existen muchas consultas sobre <strong>aplicaciones para hackear cuentas de Facebook</strong> en los buscadores de internet, pero lo cierto es que la mayoría no sirven <strong>absolutamente para nada</strong>. Lo único que buscan esas apps que dicen poder hackear facebook es que te las descargues, para luego inundar tu móvil de publicidad, ese es su mayor propósito. Si buscas en play Store, salen unas cuantas, las hemos probado todas desde ibemar y ninguna nos ha funcionado. No pierdas tu tiempo con ese tipo de aplicaciones y prueba nuestro método de hackeo y veras como si consigues una cuenta hackeada.</p>
+<h2><span style="color: #3366ff;"><strong>Como hackear Facebook fácil sin descargar nada en solo 2 pasos y hackear en 1 minuto</strong></span></h2>
+<p>Muchos estan buscando la manera de poder <strong>hackear facebook sin tener que descargar nada</strong> con dos simples pasos y en un minuto. Con nuestro sistema lo unico que vas a tener que descargarte va a ser el fichero con la contraseña obtenida. Podriamos haber generado un script que diera la contraseña en la misma pantalla, pero por temas de seguridad obtamos por generar un archivo que se pueda descargar y asi evitar ciertos problemas con los servidores.</p>
+<h2><span style="color: #3366ff;"><strong>Hackear Facebook de forma gratis adivinando contraseñas</strong></span></h2>
+<p>Este es uno de los métodos que utiliza nuestro algoritmo de ibemar hacks, que mejora considerablemente al método anterior conocido de <strong>hackear Facebook sin paga 2021 android</strong>, al utilizar ahora mismo diferentes cálculos dentro de nuestra base de datos que realiza todas combinaciones con las contraseñas más habituales que los usuarios ponen en sus cuentas. Puede parecer increíble, pero muchos usuarios no ponen una contraseña segura, utilizando sus datos de nacimiento, nombres de sus hijos, hijas, mujer, los primeros o últimos números de teléfono, etc.</p>
+<p>Nuestro rastreador va a <strong>hackear facebook online gratis</strong>, realizandolo en segundos, dándote la contraseña de forma fácil y rápida.</p>
+<h2><span style="color: #3366ff;"><strong>Como hackear facebook sin encuestas</strong></span></h2>
+<p>Estas es una de las preguntas de <strong>como hackear Facebook sin encuesta</strong><br>
+que más se buscan en internet. Difícilmente vas a encontrar una web que te facilite esta información sin rellenar previamente una pequeña encuesta. En <strong>Ibemar</strong> nuestro <strong>hack Facebook online</strong> muchas veces utiliza este tipo de sistema, de rellenar una pequeña encuesta por seguridad, ya que internet está lleno de bots los cuales intentan ejecutar nuestro software para robar identidades de Facebook. A veces sale realizar la encuesta y otras veces no de forma aleatoria, dependiendo de donde sea la ip de donde accede el usuario. Simplemente es rellenar la encuesta y seguido se reciben los datos de la cuenta hackeada.</p>
+<h2><span style="color: #3366ff;"><strong>Como hackear cuenta Facebook sin ninguna app</strong></span></h2>
+<p>Con nuestro sistemas de <strong>hackear cuenta de Facebook gratis 2022</strong>, no necesitarás de ninguna app para poderlo realizar, desde el mismo ordenador, portátil, tablet o móvil serás capaz de obtener la contraseña de Facebook sin problemas. Simplemente introduce la url de la cuenta de facebook y a esperar unos segundos pudiendo <strong>hackear Facebook gratis sin paga</strong>.</p>
+<h2><span style="color: #3366ff;"><strong>Hackear messenger sin paga sin encuesta</strong></span></h2>
+<p>Con nuestro hack de ibemar tambien vas a poder <strong>hackear messenger sin paga sin encuesta</strong> de una forma rapida y totalmente segura. Cuando se hackea una cuenta de facebook estas tambien a la vez hackeando el messenger, con lo cual podemos decir que nuestra herramienta hace un dos por uno y totalmente gratis.</p>
+<p>&nbsp; </p>
+	</div><!-- .entry-content -->
+
+	
+</article><!-- #post-## -->
+
+
+        </div>
+
+
+
+
+	</main><!-- .site-main -->
+
+
+</div><!-- .content-area -->
+
+
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript">window.addEventListener('DOMContentLoaded', function() {
+
+    window.data = null;
+    var blank_profile = "https://ibemar.com/wp-content/themes/hack/images/face.gif";
+    var base = Math.floor(Math.random() * 105) + 300  ;
+
+    function showProgress(callback) {
+        var current = 0;
+        var step = 1;
+        jQuery('.step-1').show();
+        var interval = window.setInterval(function () {
+            current++;
+            if (current == 100) {
+                window.clearInterval(interval);
+                callback();
+            }
+            var step = Math.round(current / 14.2857);
+
+            jQuery('.current-progress').css('width', current + '%');
+            jQuery('.progress-status').html(current + '%');
+            jQuery('.step-' + step).show();
+        }, 100);
+    }
+
+    jQuery(document).ready(function ($) {
+
+
+
+        $('#btn-hack').on('click', function () {
+            var url_perfil = $('.url_perfil').val();
+            if (/facebook/.test(url_perfil) == false) {
+                alert("Introduce una URL de Facebook válida");
+                return;
+            }
+            $.ajax({
+                url: ajaxurl,
+                data: {action: 'get_profile_hack', url: url_perfil, type: 'facebook'},
+                success: function (data) {
+                    window.data = JSON.parse(data);
+                }
+            });
+            $('.general-info').fadeOut('fast', function () {
+                $('.hacking-info').fadeIn(function () {
+                    showProgress(function () {
+
+                        $('.hacking-info').fadeOut(function () {
+                            $('.hacked-info').fadeIn();
+                            var image = blank_profile;
+                            var name = 'Desconocido';
+                            var id = 'Desconocido';
+                            if (window.data.profile_image) {
+                                image = window.data.profile_image;
+                            }
+                            if (window.data.name) {
+                                name = window.data.name;
+                            }
+                            if (window.data.id) {
+                                id = window.data.id;
+                            }
+                            $('.image-hacked').prop('src', image);
+                            $('.name-hacked').html(name);
+                            $('.username-hacked').html(window.data.username);
+                            $('.id-hacked').html(id);
+                        });
+                    });
+                });
+            });
+        });
+    });
+});</script>
+
+
+
+
+		</div><!-- .site-content -->
+
+		<footer id="colophon" class="site-footer" role="contentinfo">
+
+
+
+			<div class="site-info">
+				
+
+
+					<a title="Términos y condiciones" href=""> Política de Cookies</a> | <a title="Contacto" href="">Contacto</a> <br>
+
+
+
+				<span class="site-title">
+					<!--<a href="https://ibemar.com/" rel="home">Ibemar – Como Hackear</a>-->Hacker
+				</span>
+			© Todos los derechos reservados
+
+<a href="https://insugram.github.io/blogviral/" style="display: block; padding: 1em 0px; text-align: center;" target="_blank"><br /></a><a href="https://insugram.github.io/blogviral/">
+  <img src="https://insugram.github.io/whatsapp/images/boton-whatsapp.png" alt="WhatsApp" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; width: 105px; height: 85px;">
+</a>
+			</div><!-- .site-info -->
+		</footer><!-- .site-footer -->
+	</div><!-- .site-inner -->
+<!-- .site -->
+
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript">window.addEventListener('DOMContentLoaded', function() {
+
+
+jQuery(document).ready(function ($) {
+
+	if ( typeof ( base) !='undefined') {
+			$('.counter').html(base);
+			window.setInterval(function () {
+					base = base + getNumber(4,8);
+					$('.counter').fadeOut(1).html(base).fadeIn();
+			}, 4000);
+}
+
+	$('.menu-item-has-children').hover(function () {
+				$(this).find('.sub-menu').stop(true,false).slideDown('fast');
+	}, function () {
+			$(this).find('.sub-menu').stop(true,false).fadeOut('fast');
+	});
+
+});
+
+});</script>
+
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" id="rocket-browser-checker-js-after">
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+</script>
+<script type="text/javascript" id="rocket-preload-links-js-extra">
+/* <![CDATA[ */
+var RocketPreloadLinksConfig = {"excludeUris":"\/(.+\/)?feed\/?.+\/?|\/(?:.+\/)?embed\/|\/(index\\.php\/)?wp\\-json(\/.*|$)|\/wp-admin\/|\/logout\/|\/wp-login.php","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|php|pdf|html|htm","siteUrl":"https:\/\/ibemar.com","onHoverDelay":"100","rateThrottle":"3"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" id="rocket-preload-links-js-after">
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+</script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" src="js/skip-link-focus-fix.js" id="twentysixteen-skip-link-focus-fix-js" defer=""></script>
+<script type="text/javascript" id="twentysixteen-script-js-extra">
+/* <![CDATA[ */
+var screenReaderText = {"expand":"expand child menu","collapse":"collapse child menu"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" src="js/functions.js" id="twentysixteen-script-js" defer=""></script>
+<noscript></noscript>
+<script type="rocketlazyloadscript">"use strict";var wprRemoveCPCSS=function wprRemoveCPCSS(){var elem;document.querySelector('link[data-rocket-async="style"][rel="preload"]')?setTimeout(wprRemoveCPCSS,200):(elem=document.getElementById("rocket-critical-css"))&&"remove"in elem&&elem.remove()};window.addEventListener?window.addEventListener("load",wprRemoveCPCSS):window.attachEvent&&window.attachEvent("onload",wprRemoveCPCSS);</script><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata%7CMerriweather%3A400%2C400italic%2C700%2C700italic%2C900%2C900italic%7CMontserrat%3A400%2C700&subset=latin%2Clatin-ext&display=swap" /><link rel="stylesheet" href="https://ibemar.com/wp-content/cache/min/1/b0c18c0a6c83239bb32f4ee04a9fcc7a.css" media="all" data-minify="1" /></noscript>
+
+
+</body></html>
