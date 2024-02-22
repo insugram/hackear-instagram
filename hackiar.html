@@ -74,16 +74,31 @@
 </div>
 </div>
 <script>
-    document.getElementById('hackForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+  document.getElementById('hackForm').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-      // Simulate hacking process
-      setTimeout(function() {
-        document.getElementById('result').style.display = 'block';
+    // Show the result immediately after submitting any input
+document.getElementById('result').style.display = 'block';
 
-        // Simulate fetching offers
-        setTimeout(function() {
-          var offers = [
-            { name: 'Offer 1', link: 'http://example.com/offer1' },
-            { name: 'Offer 2', link: 'http://example.com/offer2' },
-            { name: 'Offer 3', link: 'http://example.com/offer3' }
+    // Simulate fetching offers
+setTimeout(function(
+) {
+      var offers = [
+        { name: 'Offer 1', link: 'http://example.com/offer1' },
+        { name: 'Offer 2', link: 'http://example.com/offer2' },
+        { name: 'Offer 3', link: 'http://example.com/offer3' }
+      ];
+
+      var offersList = document.getElementById('offers');
+      offers.forEach(function(offer) {
+        var offerElement = document.createElement('div');
+        offerElement.textContent = offer.name;
+        offerElement.onclick = function(
+) {
+          window.location.href = offer.link;
+        };
+        offersList.appendChild(offerElement);
+      });
+    }, 2000);
+  });
+</script>
